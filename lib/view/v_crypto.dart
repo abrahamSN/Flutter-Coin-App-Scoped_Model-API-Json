@@ -11,16 +11,26 @@ class ViewCrypto extends StatelessWidget {
         title: new Text('Crypto'),
       ),
       body: new ScopedModelDescendant<CryptoModel>(
-          builder: (context, child, model) => new ListView(
-                children: model.cryptos.map((coin) => new ListTile(
-                  title: new Text(coin.name),
-                  leading: new CircleAvatar(
-                    child: new Text(coin.symbol),
-                    backgroundColor: Colors.blue,
-                  ),
-                  subtitle: new Text(coin.priceUsd),
-                )).toList(),
-              )),
+        builder: (context, child, model) =>
+        new FutureBuilder<List<Crypto>>(
+          future: model.fetchCrypto(),
+          builder: (context, snapshot) {
+            return new ListView(
+              children: model.cryptos
+                  .map((coin) => new ListTile(
+                        title: new Text(coin.name),
+                        leading: new CircleAvatar(
+                          child: new Text(coin.symbol),
+                          backgroundColor: Colors.blue,
+                        ),
+                        subtitle: new Text(coin.priceUsd),
+                        onTap: () => {},
+                      ))
+                  .toList(),
+            );
+          }
+        ),
+      ),
       floatingActionButton: new ScopedModelDescendant<CryptoModel>(
         builder: (context, child, model) => new FloatingActionButton(
               onPressed: model.fetchCrypto,

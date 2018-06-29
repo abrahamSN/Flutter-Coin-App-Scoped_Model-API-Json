@@ -18,7 +18,7 @@ class Crypto {
 }
 
 class CryptoModel extends Model {
-  final List<Crypto> cryptos = new List<Crypto>();
+  List<Crypto> cryptos = new List<Crypto>();
 
   final String url = 'https://api.coinmarketcap.com/v1/ticker/';
 
@@ -35,5 +35,4 @@ class CryptoModel extends Model {
 
     return cryptos;
   }
-
 }
